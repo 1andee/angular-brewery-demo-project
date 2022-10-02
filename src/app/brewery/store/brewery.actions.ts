@@ -1,13 +1,21 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props } from '@ngrx/store';
+import { BreweryData } from '../model/brewery-data';
 
-export const loadBreweries = createAction('[Brewery] Load Breweries');
+const storeName = 'Brewery';
 
-export const loadBreweriesSuccess = createAction(
-  '[Brewery] Load Breweries Success',
-  props<{ data: any }>()
-);
+const getBreweriesAction = (type: string) =>
+  `${storeName} - Get Breweries [${type}]`;
 
-export const loadBreweriesFailure = createAction(
-  '[Brewery] Load Breweries Failure',
-  props<{ error: any }>()
-);
+export const OnGetBreweriesAction = {
+  Start: createAction(getBreweriesAction('Start')),
+  Request: createAction(getBreweriesAction('Request')),
+  Response: createAction(
+    getBreweriesAction('Response'),
+    props<{ data: BreweryData[] }>()
+  ),
+  Error: createAction(
+    getBreweriesAction('Error'),
+    props<{ error: HttpErrorResponse }>()
+  ),
+};

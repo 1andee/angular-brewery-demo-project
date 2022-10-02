@@ -1,5 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import * as BreweryActions from './brewery.actions';
+import { BreweryData } from '../model/brewery-data';
+import { OnGetBreweriesAction } from './brewery.actions';
 
 export const breweryFeatureKey = 'brewery';
 
@@ -9,8 +10,5 @@ export const initialState: State = {};
 
 export const reducer = createReducer(
   initialState,
-
-  on(BreweryActions.loadBreweries, (state) => state),
-  on(BreweryActions.loadBreweriesSuccess, (state, action) => state),
-  on(BreweryActions.loadBreweriesFailure, (state, action) => state)
+  on(OnGetBreweriesAction.Response, (state, action) => state)
 );
