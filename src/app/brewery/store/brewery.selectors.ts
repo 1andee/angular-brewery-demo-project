@@ -8,4 +8,8 @@ export const selectRandomBrewery = createSelector(
   selectBreweryState,
   (state) => state && state.randomBrewery
 );
+
+export const selectBreweriesByCity = createSelector(
+  selectBreweryState,
+  (state) => state && state.breweriesByCity
 );

@@ -19,3 +19,19 @@ export const OnGetRandomBreweryAction = {
     props<{ error: HttpErrorResponse }>()
   ),
 };
+
+const getBreweriesByCityAction = (type: string) =>
+  `${storeName} - Get Breweries By City [${type}]`;
+
+export const OnGetBreweriesByCityAction = {
+  Start: createAction(getBreweriesByCityAction('Start')),
+  Request: createAction(getBreweriesByCityAction('Request')),
+  Response: createAction(
+    getBreweriesByCityAction('Response'),
+    props<{ data: BreweryData[] }>()
+  ),
+  Error: createAction(
+    getBreweriesByCityAction('Error'),
+    props<{ error: HttpErrorResponse }>()
+  ),
+};
