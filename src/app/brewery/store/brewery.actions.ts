@@ -4,18 +4,18 @@ import { BreweryData } from '../model/brewery-data';
 
 const storeName = 'Brewery';
 
-const getBreweriesAction = (type: string) =>
-  `${storeName} - Get Breweries [${type}]`;
+const getRandomBreweryAction = (type: string) =>
+  `${storeName} - Get Random Brewery [${type}]`;
 
-export const OnGetBreweriesAction = {
-  Start: createAction(getBreweriesAction('Start')),
-  Request: createAction(getBreweriesAction('Request')),
+export const OnGetRandomBreweryAction = {
+  Start: createAction(getRandomBreweryAction('Start')),
+  Request: createAction(getRandomBreweryAction('Request')),
   Response: createAction(
-    getBreweriesAction('Response'),
-    props<{ data: BreweryData[] }>()
+    getRandomBreweryAction('Response'),
+    props<{ data: BreweryData }>()
   ),
   Error: createAction(
-    getBreweriesAction('Error'),
+    getRandomBreweryAction('Error'),
     props<{ error: HttpErrorResponse }>()
   ),
 };

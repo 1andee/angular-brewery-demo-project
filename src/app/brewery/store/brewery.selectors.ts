@@ -1,6 +1,11 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import * as fromBrewery from './brewery.reducer';
+import { BreweryState } from './brewery.state';
 
-export const selectBreweryState = createFeatureSelector<fromBrewery.State>(
-  fromBrewery.breweryFeatureKey
+export const selectBreweryState =
+  createFeatureSelector<BreweryState>('breweries');
+
+export const selectRandomBrewery = createSelector(
+  selectBreweryState,
+  (state) => state && state.randomBrewery
+);
 );

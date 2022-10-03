@@ -1,14 +1,17 @@
-import { Action, createReducer, on } from '@ngrx/store';
-import { BreweryData } from '../model/brewery-data';
-import { OnGetBreweriesAction } from './brewery.actions';
+import { Action, combineReducers, createReducer, on } from '@ngrx/store';
+import { OnGetRandomBreweryAction } from './brewery.actions';
+import { BreweryState } from './brewery.state';
 
-export const breweryFeatureKey = 'brewery';
-
-export interface State {}
-
-export const initialState: State = {};
-
-export const reducer = createReducer(
-  initialState,
-  on(OnGetBreweriesAction.Response, (state, action) => state)
+export const randomBreweryReducer = createReducer(
+  null,
+  on(OnGetRandomBreweryAction.Response, (state, { data }) => data)
 );
+
+export function breweryReducer(
+  state: BreweryState,
+  action: Action
+): BreweryState {
+  return combineReducers<BreweryState>({
+    randomBrewery: randomBreweryReducer,
+  })(state, action);
+}

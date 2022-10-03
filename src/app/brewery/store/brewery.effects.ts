@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { OnGetBreweriesAction } from './brewery.actions';
+import { OnGetRandomBreweryAction } from './brewery.actions';
 import { BreweryService } from '../services/brewery.service';
 
 @Injectable()
@@ -12,14 +12,16 @@ export class BreweryEffects {
     private breweryService: BreweryService
   ) {}
 
-  getBreweries$ = createEffect(() =>
+  getRandomBrewery$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(OnGetBreweriesAction.Start),
+      ofType(OnGetRandomBreweryAction.Start),
       switchMap(() =>
         this.breweryService.getRandomBrewery().pipe(
-          map((response) => OnGetBreweriesAction.Response({ data: response })),
-          catchError((err) => of(OnGetBreweriesAction.Error(err))),
-          startWith(OnGetBreweriesAction.Request())
+          map((response) =>
+            OnGetRandomBreweryAction.Response({ data: response[0] })
+          ),
+          catchError((err) => of(OnGetRandomBreweryAction.Error(err))),
+          startWith(OnGetRandomBreweryAction.Request())
         )
       )
     )

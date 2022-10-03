@@ -10,6 +10,7 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { Effects } from './root-store/effects';
 import { metaReducers, reducers } from './root-store/reducer';
+import { BreweryModule } from './brewery/brewery.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +18,7 @@ import { metaReducers, reducers } from './root-store/reducer';
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
+    BreweryModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([Effects]),
