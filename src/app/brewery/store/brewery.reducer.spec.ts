@@ -1,13 +1,24 @@
-import { reducer, initialState } from './brewery.reducer';
+import { OnGetRandomBreweryAction } from './brewery.actions';
+import { breweryReducer } from './brewery.reducer';
+import { BreweryState } from './brewery.state';
+import { mockBrewery } from './brewery.state.mock';
 
-describe('Brewery Reducer', () => {
-  describe('an unknown action', () => {
-    it('should return the previous state', () => {
-      const action = {} as any;
+describe('breweryReducer', () => {
+  let initialState: BreweryState;
 
-      const result = reducer(initialState, action);
+  beforeEach(() => {
+    initialState = {
+      randomBrewery: undefined,
+      breweriesByCity: [],
+    } as any;
+  });
 
-      expect(result).toBe(initialState);
-    });
+  it('should update state on OnGetRandomBreweryAction.Response', () => {
+    const response = mockBrewery();
+    const result = breweryReducer(
+      initialState,
+      OnGetRandomBreweryAction.Response({ data: response })
+    );
+    expect(result.randomBrewery).toEqual(response);
   });
 });
