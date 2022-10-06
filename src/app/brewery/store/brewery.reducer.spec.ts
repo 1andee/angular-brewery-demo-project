@@ -1,7 +1,10 @@
-import { OnGetRandomBreweryAction } from './brewery.actions';
+import {
+  OnGetBreweriesByCityAction,
+  OnGetRandomBreweryAction,
+} from './brewery.actions';
 import { breweryReducer } from './brewery.reducer';
 import { BreweryState } from './brewery.state';
-import { mockBrewery } from './brewery.state.mock';
+import { mockBreweriesByCity, mockBrewery } from './brewery.state.mock';
 
 describe('breweryReducer', () => {
   let initialState: BreweryState;
@@ -20,5 +23,14 @@ describe('breweryReducer', () => {
       OnGetRandomBreweryAction.Response({ data: response })
     );
     expect(result.randomBrewery).toEqual(response);
+  });
+
+  it('should update state on OnGetBreweriesByCityAction.Response', () => {
+    const response = mockBreweriesByCity();
+    const result = breweryReducer(
+      initialState,
+      OnGetBreweriesByCityAction.Response({ data: response })
+    );
+    expect(result.breweriesByCity).toEqual(response);
   });
 });

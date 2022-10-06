@@ -23,9 +23,13 @@ export const mockBrewery = (): BreweryData => {
   };
 };
 
+export const mockBreweriesByCity = (): BreweryData[] => {
+  return [mockBrewery(), mockBrewery()];
+};
+
 export const mockBreweryStore = (): BreweryState => {
   return {
     randomBrewery: mockBrewery(),
-    breweriesByCity: [mockBrewery(), mockBrewery()],
+    breweriesByCity: mockBreweriesByCity(),
   };
 };
