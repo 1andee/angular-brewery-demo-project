@@ -24,7 +24,10 @@ const getBreweriesByCityAction = (type: string) =>
   `${storeName} - Get Breweries By City [${type}]`;
 
 export const OnGetBreweriesByCityAction = {
-  Start: createAction(getBreweriesByCityAction('Start')),
+  Start: createAction(
+    getBreweriesByCityAction('Start'),
+    props<{ city: string }>()
+  ),
   Request: createAction(getBreweriesByCityAction('Request')),
   Response: createAction(
     getBreweriesByCityAction('Response'),

@@ -30,6 +30,9 @@ export const mockBreweriesByCity = (): BreweryData[] => {
 export const mockBreweryStore = (): BreweryState => {
   return {
     randomBrewery: mockBrewery(),
-    breweriesByCity: mockBreweriesByCity(),
+    breweriesByCity: {
+      city: 'foo bar city',
+      breweries: mockBreweriesByCity(),
+    },
   };
 };

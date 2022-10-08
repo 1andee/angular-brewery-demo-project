@@ -28,7 +28,14 @@
   <ng-container *ngIf="randomBrewery$ | async as randomBrewery">
     <h4>Your Random Brewery:</h4>
     <p>{{ randomBrewery.name }}</p>
-    <p>{{ randomBrewery.city }}</p>
+    <p>{{ randomBrewery.city }}, {{ randomBrewery.state }}</p>
+  </ng-container>
+
+  <ng-container *ngIf="breweriesByCity$ | async as breweries">
+    <h4>Breweries for {{ cityName$ | async | titlecase}}</h4>
+    <div *ngFor="let brewery of breweries">
+      <span>{{ brewery.name }}</span>
+    </div>
   </ng-container>
 
 </div>

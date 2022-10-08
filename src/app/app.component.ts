@@ -1,8 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { filter, tap } from 'rxjs/operators';
-import { OnGetRandomBreweryAction } from './brewery/store/brewery.actions';
-import { selectRandomBrewery } from './brewery/store/brewery.selectors';
+import {
+  OnGetBreweriesByCityAction,
+  OnGetRandomBreweryAction,
+} from './brewery/store/brewery.actions';
+import {
+  selectBreweriesByCity,
+  selectBreweriesByCityName,
+  selectRandomBrewery,
+} from './brewery/store/brewery.selectors';
 
 @Component({
   selector: 'app-root',
@@ -15,9 +22,18 @@ export class AppComponent implements OnInit {
     .select(selectRandomBrewery)
     .pipe(filter((brewery) => !!brewery));
 
+  public breweriesByCity$ = this.store
+    .select(selectBreweriesByCity)
+    .pipe(filter((breweries) => !!breweries));
+
+  public cityName$ = this.store
+    .select(selectBreweriesByCityName)
+    .pipe(filter((breweries) => !!breweries));
+
   constructor(private store: Store) {}
 
   public ngOnInit(): void {
     this.store.dispatch(OnGetRandomBreweryAction.Start());
+    this.store.dispatch(OnGetBreweriesByCityAction.Start({ city: 'chicago' }));
   }
 }
