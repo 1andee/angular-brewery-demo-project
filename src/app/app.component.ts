@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { filter, tap } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  tap,
+} from 'rxjs/operators';
 import {
   OnGetBreweriesByCityAction,
   OnGetRandomBreweryAction,
@@ -17,7 +23,6 @@ import {
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'super-cool-demo-angular-project';
   public randomBrewery$ = this.store
     .select(selectRandomBrewery)
     .pipe(filter((brewery) => !!brewery));
@@ -30,10 +35,26 @@ export class AppComponent implements OnInit {
     .select(selectBreweriesByCityName)
     .pipe(filter((breweries) => !!breweries));
 
-  constructor(private store: Store) {}
+  public cityInput: string;
+  public cityInputUpdate = new BehaviorSubject<string>('');
+
+  constructor(private store: Store) {
+    this.cityInputUpdate
+      .pipe(
+        debounceTime(700),
+        distinctUntilChanged(),
+        filter((city) => !!city)
+      )
+      .subscribe((city) => {
+        this.store.dispatch(
+          OnGetBreweriesByCityAction.Start({
+            city,
+          })
+        );
+      });
+  }
 
   public ngOnInit(): void {
     this.store.dispatch(OnGetRandomBreweryAction.Start());
-    this.store.dispatch(OnGetBreweriesByCityAction.Start({ city: 'chicago' }));
   }
 }
