@@ -14,8 +14,9 @@ export class BreweryService {
   }
 
   public getBreweriesByCity(city: string): Observable<BreweryData[]> {
+    // TODO: implement pagination
     return this.http.get<BreweryData[]>(
-      `${this.openBreweryDbApiUrl}?by_city=${city}&per_page=5`
+      `${this.openBreweryDbApiUrl}?by_city=${city}&per_page=10`
     );
   }
 }
