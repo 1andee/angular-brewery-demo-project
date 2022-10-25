@@ -10,6 +10,11 @@ export const randomBreweryReducer = createReducer(
   on(OnGetRandomBreweryAction.Response, (state, { data }) => data)
 );
 
+export const cityReducer = createReducer<string>(
+  null,
+  on(OnGetBreweriesByCityAction.Start, (state, { city }) => city)
+);
+
 export const breweriesByCityReducer = createReducer(
   null,
   on(OnGetBreweriesByCityAction.Response, (state, { data }) => data)
@@ -21,6 +26,9 @@ export function breweryReducer(
 ): BreweryState {
   return combineReducers<BreweryState>({
     randomBrewery: randomBreweryReducer,
-    breweriesByCity: breweriesByCityReducer,
+    breweriesByCity: combineReducers({
+      city: cityReducer,
+      breweries: breweriesByCityReducer,
+    }),
   })(state, action);
 }

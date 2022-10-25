@@ -1,5 +1,6 @@
 import {
   selectBreweriesByCity,
+  selectBreweriesByCityName,
   selectRandomBrewery,
 } from './brewery.selectors';
 import { mockBreweryStore } from './brewery.state.mock';
@@ -16,10 +17,21 @@ describe('Brewery Store selectors', () => {
     });
   });
 
+  describe('selectBreweriesByCityName', () => {
+    it('should return breweriesByCity', () => {
+      expect(selectBreweriesByCityName.projector(state)).toEqual(
+        state.breweriesByCity.city
+      );
+    });
+    it('should return empty if state is not loaded', () => {
+      expect(selectBreweriesByCityName.projector(undefined)).toBeUndefined();
+    });
+  });
+
   describe('selectBreweriesByCity', () => {
     it('should return breweriesByCity', () => {
       expect(selectBreweriesByCity.projector(state)).toEqual(
-        state.breweriesByCity
+        state.breweriesByCity.breweries
       );
     });
     it('should return empty if state is not loaded', () => {

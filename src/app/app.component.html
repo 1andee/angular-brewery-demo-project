@@ -20,7 +20,7 @@
   <!-- Highlight Card -->
     <div class="card highlight-card card-small">
       <img id="rocket" src="assets/rocket.svg" />
-      <span>{{ title }} app is running!</span>
+      <span>Brewery Lookup Demo Project!</span>
       <img id="rocket-smoke" src="assets/rocket-smoke.svg" />
     </div>
 </div>
@@ -28,9 +28,27 @@
   <ng-container *ngIf="randomBrewery$ | async as randomBrewery">
     <h4>Your Random Brewery:</h4>
     <p>{{ randomBrewery.name }}</p>
-    <p>{{ randomBrewery.city }}</p>
+    <p>{{ randomBrewery.city }}, {{ randomBrewery.state }}</p>
   </ng-container>
 
+  <section class="search">
+    <h4>Search for Breweries by 🇺🇸 City Name:</h4>
+
+    <input
+      class="form-control"
+      [(ngModel)]="cityInput"
+      type="text"
+      name="cityInput"
+      (ngModelChange)="this.cityInputUpdate.next($event)"
+    />
+
+    <ng-container *ngIf="breweriesByCity$ | async as breweries">
+      <h4> {{ breweries.length}} brewery results for {{ cityName$ | async | titlecase }}</h4>
+      <div *ngFor="let brewery of breweries">
+        <span>{{ brewery.name }}</span>
+      </div>
+    </ng-container>
+  </section>
 </div>
 
 <router-outlet></router-outlet>

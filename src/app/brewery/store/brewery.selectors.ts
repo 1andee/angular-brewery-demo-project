@@ -9,7 +9,12 @@ export const selectRandomBrewery = createSelector(
   (state) => state && state.randomBrewery
 );
 
+export const selectBreweriesByCityName = createSelector(
+  selectBreweryState,
+  (state) => state && state.breweriesByCity.city
+);
+
 export const selectBreweriesByCity = createSelector(
   selectBreweryState,
-  (state) => state && state.breweriesByCity
+  (state) => state && state.breweriesByCity.breweries
 );

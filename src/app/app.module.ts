@@ -11,11 +11,13 @@ import { EffectsModule } from '@ngrx/effects';
 import { Effects } from './root-store/effects';
 import { metaReducers, reducers } from './root-store/reducer';
 import { BreweryModule } from './brewery/brewery.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     HttpClientModule,
+    FormsModule,
     BrowserModule,
     AppRoutingModule,
     BreweryModule,
